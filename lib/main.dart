@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_bible/screen/home_screen.dart';
+import 'package:my_bible/screens/home_screen.dart';
 
 void main() {
   runApp(
