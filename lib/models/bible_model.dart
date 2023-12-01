@@ -1,9 +1,9 @@
 class BibleModel {
-  String? idx;
-  String? cate;
-  String? book;
-  String? chapter;
-  String? paragraph;
+  int? idx;
+  int? cate;
+  int? book;
+  int? chapter;
+  int? paragraph;
   String? sentence;
   String? testament;
   String? long_label;
@@ -23,7 +23,7 @@ class BibleModel {
 
   factory BibleModel.fromJson(Map<String, dynamic> json)=>
       BibleModel(
-          idx: json['id'],
+          idx: json['idx'],
           cate: json['cate'],
           book: json['book'],
           chapter: json['chapter'],

@@ -24,17 +24,25 @@ class SearchBarSliverPersistentHeaderDelegate
       ) {
     double horizontalPadding() {
       if (!overlapsContent && shrinkOffset == 0.0) {
-        return 30.0;
+        return 60.0;
       } else {
-        return 30 - (shrinkOffset / 2);
+        return 65 - (shrinkOffset * 1.2);
       }
     }
 
-    double cornerRadius() {
+    double cornerTopRadius() {
       if (!overlapsContent && shrinkOffset == 0.0) {
-        return 8.0;
+        return 100.0;
       } else {
-        return 8 - shrinkOffset / 5;
+        return 50 - shrinkOffset;
+      }
+    }
+
+    double cornerBottomRadius() {
+      if (!overlapsContent && shrinkOffset == 0.0) {
+        return 100.0;
+      } else {
+        return 50 - shrinkOffset / 1.25;
       }
     }
 
@@ -52,10 +60,10 @@ class SearchBarSliverPersistentHeaderDelegate
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(cornerRadius()),
-                    topRight: Radius.circular(cornerRadius()),
-                    bottomLeft: const Radius.circular(8),
-                    bottomRight: const Radius.circular(8),
+                    topLeft: Radius.circular(cornerTopRadius()),
+                    topRight: Radius.circular(cornerTopRadius()),
+                    bottomLeft: Radius.circular(cornerBottomRadius()),
+                    bottomRight: Radius.circular(cornerBottomRadius()),
                   ),
                   boxShadow: [
                     BoxShadow(

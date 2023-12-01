@@ -35,8 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         width: 1.5,
                       ),
                       borderRadius: BorderRadius.only(
-                        bottomLeft: const Radius.circular(8),
-                        bottomRight: const Radius.circular(8),
+                        bottomLeft: const Radius.circular(10),
+                        bottomRight: const Radius.circular(10),
                       ),
                     ),
                     contentPadding: EdgeInsets.symmetric(

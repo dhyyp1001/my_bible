@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_bible/deregates/search_bar_sliver_persistent_header_delegate.dart';
+import 'package:my_bible/screens/bible_select_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,9 +9,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     final double statusBarSize = MediaQuery.of(context).padding.top;
 
     return Scaffold(
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 60,
+                    height: 50,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -57,15 +58,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context){
+                                return BibleSelectScreen();} ),
+                        );
+                      },
                       style: TextButton.styleFrom(
-                        fixedSize: const Size(370, 55),
+                        fixedSize: const Size(310, 55),
                         backgroundColor:
                             const Color.fromRGBO(204, 108, 45, 1.0),
-                        //<-- SEE HERE
-                        side: const BorderSide(
-                          color: Color.fromRGBO(204, 108, 45, 1.0),
-                        ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
@@ -91,4 +95,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
