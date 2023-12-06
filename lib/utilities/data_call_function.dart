@@ -13,17 +13,45 @@ class DataCallFunction {
     bibleModelList = _bibleModelList;
   }
 
-  Future<List<String?>> getBibleLongLabelList() async{
+  Future<List<String?>> getBibleLongLabelList() async {
     await dataCheck();
 
-    List<String?>? longLabelList = List.empty(growable: true);
+    List<String?> longLabelList = List.empty(growable: true);
 
     for (int i = 0; i < bibleModelList.length; i++) {
-      longLabelList!.add(bibleModelList[i].long_label);
+      longLabelList.add(bibleModelList[i].long_label);
     }
 
     longLabelList = longLabelList!.toSet().toList();
-
     return longLabelList;
+  }
+
+  Future<List<String?>> getBibleChapterList(String? longLabel) async {
+    await dataCheck();
+
+    List<String?> chapterList = List.empty(growable: true);
+
+    for (int i = 0; i < bibleModelList.length; i++) {
+      if (bibleModelList[i].long_label == longLabel) {
+        chapterList.add(bibleModelList[i].chapter.toString() + ' 장');
+      }
+    }
+
+    chapterList = chapterList!.toSet().toList();
+    return chapterList;
+  }
+
+  Future<List<String?>> getBibleParagraphList(String? longLabel, String? chapter) async {
+    await dataCheck();
+
+    List<String?> paragraphList = List.empty(growable: true);
+
+    for (int i = 0; i < bibleModelList.length; i++) {
+      if (bibleModelList[i].long_label == longLabel && bibleModelList[i].chapter.toString() + ' 장' == chapter) {
+        paragraphList.add(bibleModelList[i].paragraph.toString() + ' 절');
+      }
+    }
+
+    return paragraphList;
   }
 }

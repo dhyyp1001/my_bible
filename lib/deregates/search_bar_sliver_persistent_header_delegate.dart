@@ -26,7 +26,7 @@ class SearchBarSliverPersistentHeaderDelegate
       if (!overlapsContent && shrinkOffset == 0.0) {
         return 60.0;
       } else {
-        return 65 - (shrinkOffset * 1.2);
+        return 60 - (shrinkOffset * 1.1275);
       }
     }
 
