@@ -19,6 +19,10 @@ class _BibleSelectScreenState extends State<BibleSelectScreen> {
     CustomDropdown cd = new CustomDropdown();
 
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+          color: const Color.fromRGBO(204, 108, 45, 1.0),
+          height: 90,
+          child: GestureDetector()),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(204, 108, 45, 1.0),
         systemOverlayStyle: SystemUiOverlayStyle.dark,

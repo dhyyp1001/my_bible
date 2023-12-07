@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ' 성경 선택하기 ',
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w600,
                             fontSize: 15),
                       ),
                     ),

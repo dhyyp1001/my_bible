@@ -7,11 +7,13 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'NotoSansKR',
         pageTransitionsTheme: const PageTransitionsTheme(
             builders: <TargetPlatform, PageTransitionsBuilder>{
               TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
             }),
       ),
+      themeMode: ThemeMode.system,
       home: HomeScreen(),
     ),
   );
