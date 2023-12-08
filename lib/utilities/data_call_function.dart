@@ -54,4 +54,18 @@ class DataCallFunction {
 
     return paragraphList;
   }
+
+  Future<List<String?>> getSentenceList(String? longLabel, String? chapter) async {
+    await dataCheck();
+
+    List<String?> longLabelSentenceList = List.empty(growable: true);
+
+    for (int i = 0; i < bibleModelList.length; i++) {
+      if (bibleModelList[i].long_label == longLabel && bibleModelList[i].chapter.toString()+' 장' == chapter) {
+        longLabelSentenceList.add('${bibleModelList[i].paragraph}. ${bibleModelList[i].sentence}');
+      }
+    }
+
+    return longLabelSentenceList;
+  }
 }
