@@ -41,13 +41,15 @@ class DataCallFunction {
     return chapterList;
   }
 
-  Future<List<String?>> getBibleParagraphList(String? longLabel, String? chapter) async {
+  Future<List<String?>> getBibleParagraphList(
+      String? longLabel, String? chapter) async {
     await dataCheck();
 
     List<String?> paragraphList = List.empty(growable: true);
 
     for (int i = 0; i < bibleModelList.length; i++) {
-      if (bibleModelList[i].long_label == longLabel && bibleModelList[i].chapter.toString() + ' 장' == chapter) {
+      if (bibleModelList[i].long_label == longLabel &&
+          bibleModelList[i].chapter.toString() + ' 장' == chapter) {
         paragraphList.add(bibleModelList[i].paragraph.toString() + ' 절');
       }
     }
@@ -55,16 +57,20 @@ class DataCallFunction {
     return paragraphList;
   }
 
-  Future<List<String?>> getSentenceList(String? longLabel, String? chapter) async {
+  Future<List<String?>> getSentenceList(
+      String? longLabel, String? chapter) async {
     await dataCheck();
 
     List<String?> longLabelSentenceList = List.empty(growable: true);
 
     for (int i = 0; i < bibleModelList.length; i++) {
-      if (bibleModelList[i].long_label == longLabel && bibleModelList[i].chapter.toString()+' 장' == chapter) {
-        longLabelSentenceList.add('${bibleModelList[i].paragraph}. ${bibleModelList[i].sentence}');
+      if (bibleModelList[i].long_label == longLabel &&
+          bibleModelList[i].chapter.toString() + ' 장' == chapter) {
+        longLabelSentenceList.add(
+            '${bibleModelList[i].paragraph}. ${bibleModelList[i].sentence}');
       }
     }
+    longLabelSentenceList.insert(0, '\n${longLabel!} ${chapter!}');
 
     return longLabelSentenceList;
   }
