@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:my_bible/utilities/data_call_function.dart';
 
 class BibleScreen extends StatefulWidget {
-  final String? selectedLongLabel;
+  String? selectedLongLabel;
   String? selectedChapter;
   final String? selectedParagraph;
+
+  double _scaleFactor = 1.0;
+  double _baseScaleFactor = 1.0;
 
   BibleScreen(
       this.selectedLongLabel, this.selectedChapter, this.selectedParagraph,
@@ -29,15 +32,16 @@ class _BibleScreenState extends State<BibleScreen> {
             alignment: Alignment(
                 Alignment.bottomCenter.x - 0.08, Alignment.bottomCenter.y),
             child: FloatingActionButton(
-                heroTag: "actionButton1",
-                onPressed: () {
-                  setState(() {
-                    chapterPlus--;
-                    widget.selectedChapter = '$chapterPlus 장';
-                  });
-                },
-                backgroundColor:
-                    const Color.fromRGBO(204, 108, 45, 1.0).withOpacity(0.5)),
+              heroTag: "actionButton1",
+              onPressed: () {
+                setState(() {
+                  chapterPlus--;
+                  widget.selectedChapter = '$chapterPlus 장';
+                });
+              },
+              backgroundColor:
+                  const Color.fromRGBO(204, 108, 45, 1.0).withOpacity(0.5),
+            ),
           ),
           Align(
             alignment: Alignment(
@@ -69,22 +73,45 @@ class _BibleScreenState extends State<BibleScreen> {
           } else {
             return Align(
               alignment: Alignment.center,
-              child: Container(
-                width: 400,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: data!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        Container(
-                          height: 70,
-                          width: 400,
-                          child: Text(data![index]!),
-                        )
-                      ],
-                    );
-                  },
+              child: GestureDetector(
+                onScaleStart: (details) {
+                  widget._baseScaleFactor = widget._scaleFactor;
+                },
+                onScaleUpdate: (details) {
+                  setState(
+                    () {
+                      widget._scaleFactor =
+                          widget._baseScaleFactor * (details.scale);
+                      if (widget._scaleFactor < 0.99) {
+                        widget._scaleFactor = 1.0;
+                      } else if (widget._scaleFactor > 1.81) {
+                        widget._scaleFactor = 1.8;
+                      }
+                    },
+                  );
+                },
+                child: Container(
+                  width: 400,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: [
+                          Container(
+                            width: 400,
+                            child: Padding(
+                                child: Text(
+                                  data[index]!,
+                                  textScaleFactor: widget._scaleFactor,
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                padding: EdgeInsets.all(15.0)),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             );
