@@ -10,7 +10,7 @@ class CustomDropdown {
         width: 350,
         decoration: BoxDecoration(
           border: Border.all(
-              color: const Color.fromRGBO(204, 108, 45, 1.0), width: 2.0),
+              color: const Color.fromRGBO(204, 108, 45, 1.0), width: 1.25),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Padding(

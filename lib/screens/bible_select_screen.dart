@@ -20,12 +20,12 @@ class _BibleSelectScreenState extends State<BibleSelectScreen> {
     CustomDropdown cd = new CustomDropdown();
 
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromRGBO(204, 108, 45, 1.0),
-        height: 80,
-        child: GestureDetector(
+      bottomNavigationBar: GestureDetector(
+        child: BottomAppBar(
+          color: const Color.fromRGBO(204, 108, 45, 1.0),
+          height: 60,
           child: Align(
-            alignment: Alignment.center,
+            alignment: AlignmentDirectional.center,
             child: Text(
               '이동하기',
               style: TextStyle(
@@ -34,65 +34,77 @@ class _BibleSelectScreenState extends State<BibleSelectScreen> {
                   fontSize: 17),
             ),
           ),
-          onTap: () {
+        ),
+        onTap: () {
+          if (selectedLongLabelDropdown != null &&
+              selectedChapterDropdown != null) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
-                return BibleScreen(selectedLongLabelDropdown, selectedChapterDropdown, selectedParagraphDropdown);
+                return BibleScreen(selectedLongLabelDropdown,
+                    selectedChapterDropdown, selectedParagraphDropdown);
               }),
             );
-          },
-        ),
+          }
+        },
       ),
       appBar: AppBar(
-        title: Text('성경 선택하기'),
-        titleTextStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
-        backgroundColor: const Color.fromRGBO(204, 108, 45, 1.0),
+        iconTheme: IconThemeData(color: Colors.black54),
+        elevation: 0.02,
+        title: const Text(
+          '성경 선택하기',
+        ),
+        titleTextStyle: TextStyle(
+            fontWeight: FontWeight.w600, fontSize: 17, color: Colors.black54),
+        backgroundColor: const Color.fromRGBO(253, 253, 253, 1.0),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 100.0,
-          ),
-          cd.customDropdownWidget(DataCallFunction().getBibleLongLabelList(),
-              selectedLongLabelDropdown, '목차를 선택하세요.', (String? value) {
-            setState(() {
-              if (selectedChapterDropdown != null ||
-                  selectedParagraphDropdown != null) {
-                selectedChapterDropdown = null;
-                selectedParagraphDropdown = null;
-              }
-              selectedLongLabelDropdown = value;
-            });
-          }),
-          SizedBox(
-            height: 60.0,
-          ),
-          cd.customDropdownWidget(
-              DataCallFunction().getBibleChapterList(selectedLongLabelDropdown),
-              selectedChapterDropdown,
-              '장을 선택하세요.', (String? value) {
-            setState(() {
-              if (selectedParagraphDropdown != null) {
-                selectedParagraphDropdown = null;
-              }
-              selectedChapterDropdown = value;
-            });
-          }),
-          SizedBox(
-            height: 60.0,
-          ),
-          cd.customDropdownWidget(
-              DataCallFunction().getBibleParagraphList(
-                  selectedLongLabelDropdown, selectedChapterDropdown),
-              selectedParagraphDropdown,
-              '절을 선택하세요.', (String? value) {
-            setState(() {
-              selectedParagraphDropdown = value;
-            });
-          }),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 120.0,
+            ),
+            cd.customDropdownWidget(DataCallFunction().getBibleLongLabelList(),
+                selectedLongLabelDropdown, '목차를 선택하세요.', (String? value) {
+              setState(() {
+                if (selectedChapterDropdown != null ||
+                    selectedParagraphDropdown != null) {
+                  selectedChapterDropdown = null;
+                  selectedParagraphDropdown = null;
+                }
+                selectedLongLabelDropdown = value;
+              });
+            }),
+            SizedBox(
+              height: 60.0,
+            ),
+            cd.customDropdownWidget(
+                DataCallFunction()
+                    .getBibleChapterList(selectedLongLabelDropdown),
+                selectedChapterDropdown,
+                '장을 선택하세요.', (String? value) {
+              setState(() {
+                if (selectedParagraphDropdown != null) {
+                  selectedParagraphDropdown = null;
+                }
+                selectedChapterDropdown = value;
+              });
+            }),
+            SizedBox(
+              height: 60.0,
+            ),
+            cd.customDropdownWidget(
+                DataCallFunction().getBibleParagraphList(
+                    selectedLongLabelDropdown, selectedChapterDropdown),
+                selectedParagraphDropdown,
+                '절을 선택하세요.', (String? value) {
+              setState(() {
+                selectedParagraphDropdown = value;
+              });
+            }),
+          ],
+        ),
       ),
     );
   }
